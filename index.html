@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Klein Insurances | Loading…</title>
+<meta name="description" content="Klein Insurances — Ohio life, health, Medicare, annuities." />
+<style>
+  html,body{margin:0;background:#0b1220;color:#f7f5f0;font-family:system-ui,sans-serif}
+  #s{padding:48px 24px;text-align:center;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="s">Loading Klein Insurances…</div>
+<script>
+(async function () {
+  try {
+    var n = 21;
+    var b64 = "";
+    for (var i = 0; i < n; i++) {
+      var r = await fetch("p" + i + ".txt");
+      if (!r.ok) throw new Error("part " + i + " HTTP " + r.status);
+      b64 += await r.text();
+    }
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var j = 0; j < bin.length; j++) bytes[j] = bin.charCodeAt(j);
+    var html = new TextDecoder("utf-8").decode(bytes);
+    document.open();
+    document.write(html);
+    document.close();
+  } catch (e) {
+    document.getElementById("s").textContent = "Failed to load: " + e.message;
+  }
+})();
+</script>
+</body>
+</html>
